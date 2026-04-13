@@ -239,7 +239,7 @@
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.5px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -304,6 +304,16 @@
   .project-card:hover .tag {
     border-color: rgba(0,229,255,0.25);
     color: rgba(0,229,255,0.6);
+  }
+
+  a.project-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  a.project-card-link:hover .project-title {
+    color: var(--accent);
   }
 
   .project-badge {
@@ -654,6 +664,7 @@
       </div>
 
       <!-- ECG -->
+      <a class="project-card-link" href="https://1drv.ms/w/c/0e659d5273de35cd/IQAYn78pw8fdTq6uiHytFVCGAZvKI980Zmgr6OeXBKq-7Ww" target="_blank" rel="noopener noreferrer">
       <div class="project-card reveal">
         <div style="display:flex;align-items:center;flex-wrap:wrap;">
           <div class="project-number">P-002</div>
@@ -671,8 +682,10 @@
           <span class="tag">Monte Carlo</span>
         </div>
       </div>
+      </a>
 
       <!-- Solar Battery -->
+      <a class="project-card-link" href="https://sites.google.com/ucsd.edu/team13-fruinluongtu/home?authuser=3" target="_blank" rel="noopener noreferrer">
       <div class="project-card reveal">
         <div style="display:flex;align-items:center;flex-wrap:wrap;">
           <div class="project-number">P-003</div>
@@ -690,8 +703,10 @@
           <span class="tag">BOM</span>
         </div>
       </div>
+      </a>
 
       <!-- Line Following Robot -->
+      <a class="project-card-link" href="https://sites.google.com/view/ece5lab4/race-day?authuser=0" target="_blank" rel="noopener noreferrer">
       <div class="project-card reveal">
         <div style="display:flex;align-items:center;flex-wrap:wrap;">
           <div class="project-number">P-004</div>
@@ -709,6 +724,7 @@
           <span class="tag">Debugging</span>
         </div>
       </div>
+      </a>
 
     </div>
   </div>
