@@ -239,7 +239,7 @@
 
   .projects-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 1.5px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -306,16 +306,6 @@
     color: rgba(0,229,255,0.6);
   }
 
-  a.project-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-  }
-  a.project-card-link:hover .project-title {
-    color: var(--accent);
-  }
-
   .project-badge {
     display: inline-block;
     font-family: 'IBM Plex Mono', monospace;
@@ -329,6 +319,57 @@
     border-radius: 2px;
     margin-bottom: 0.75rem;
     margin-left: 0.5rem;
+  }
+
+  /* Video embed */
+  .project-video {
+    margin: 1rem 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg);
+  }
+  .project-video video,
+  .project-video iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+    border: none;
+  }
+  .project-video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--bg), var(--surface));
+    border: 1px dashed rgba(0,229,255,0.2);
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+  }
+  .project-video-placeholder svg {
+    opacity: 0.4;
+  }
+
+  /* Featured card spans full width */
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .project-card.featured .project-content { /* text side */ }
+  .project-card.featured .project-media { /* video side */ }
+
+  @media (max-width: 768px) {
+    .project-card.featured {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ── EXPERIENCE ── */
@@ -645,31 +686,68 @@
 
     <div class="projects-grid">
 
-      <!-- ECG -->
-      <a class="project-card-link" href="https://1drv.ms/w/c/0e659d5273de35cd/IQAYn78pw8fdTq6uiHytFVCGAZvKI980Zmgr6OeXBKq-7Ww" target="_blank" rel="noopener noreferrer">
-      <div class="project-card reveal">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-001</div>
-          <span class="project-badge">Analog IC</span>
+      <!-- AI Robotic Arm — Featured with video -->
+      <div class="project-card featured reveal">
+        <div class="project-content">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;">
+            <div class="project-number">P-000</div>
+            <span class="project-badge">🤖 In Progress</span>
+          </div>
+          <div class="project-title">AI-Driven Robotic Arm (SO-ARM101)</div>
+          <div class="project-desc">
+            Built and brought up a 6-DOF robotic arm using 3D-printed components and embedded servo control. Recording teleoperation demonstrations and training imitation-learning policies (ACT) for task-specific manipulation. Planning to train a vision-language-action model (SmolVLA) for natural-language-conditioned task execution.
+          </div>
+          <div class="project-tags">
+            <span class="tag">Robotics</span>
+            <span class="tag">3D Printing</span>
+            <span class="tag">Imitation Learning</span>
+            <span class="tag">Python</span>
+            <span class="tag">Servo Control</span>
+            <span class="tag">VLA</span>
+          </div>
         </div>
-        <div class="project-title">Low-Power Low-Noise ECG with DRL Circuit</div>
-        <div class="project-desc">
-          Analog front-end capturing μV-level biosignals under large common-mode interference. Custom PMOS OTA with multi-finger layout, bias tuning, and &lt;4μW power. Verified with Cadence AC, noise, stability, and Monte Carlo analysis.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Cadence</span>
-          <span class="tag">OTA Design</span>
-          <span class="tag">Biomedical</span>
-          <span class="tag">SPICE</span>
-          <span class="tag">Monte Carlo</span>
+        <div class="project-media">
+          <!--
+            ▸ OPTION A — Self-hosted MP4 video:
+              Upload your video to the GitHub repo (e.g. /assets/robot-arm-demo.mp4)
+              then uncomment the <video> block below:
+
+          <div class="project-video">
+            <video controls muted loop playsinline poster="assets/robot-arm-thumb.jpg">
+              <source src="assets/robot-arm-demo.mp4" type="video/mp4">
+            </video>
+          </div>
+
+            ▸ OPTION B — YouTube embed:
+              Upload to YouTube (unlisted is fine), grab the embed ID,
+              then uncomment the <iframe> block below:
+
+          <div class="project-video">
+            <iframe
+              src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+              title="Robot Arm Demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          -->
+
+          <!-- Placeholder shown until you add a real video -->
+          <div class="project-video">
+            <div class="project-video-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <span>Demo video coming soon</span>
+            </div>
+          </div>
         </div>
       </div>
-      </a>
 
       <!-- Viterbi Decoder -->
       <div class="project-card reveal">
         <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-002</div>
+          <div class="project-number">P-001</div>
           <span class="project-badge">RTL / Verification</span>
         </div>
         <div class="project-title">Viterbi Decoder — RTL Verification</div>
@@ -684,8 +762,26 @@
         </div>
       </div>
 
+      <!-- ECG -->
+      <div class="project-card reveal">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;">
+          <div class="project-number">P-002</div>
+          <span class="project-badge">Analog IC</span>
+        </div>
+        <div class="project-title">Low-Power Low-Noise ECG with DRL Circuit</div>
+        <div class="project-desc">
+          Analog front-end capturing μV-level biosignals under large common-mode interference. Custom PMOS OTA with multi-finger layout, bias tuning, and &lt;4μW power. Verified with Cadence AC, noise, stability, and Monte Carlo analysis.
+        </div>
+        <div class="project-tags">
+          <span class="tag">Cadence</span>
+          <span class="tag">OTA Design</span>
+          <span class="tag">Biomedical</span>
+          <span class="tag">SPICE</span>
+          <span class="tag">Monte Carlo</span>
+        </div>
+      </div>
+
       <!-- Solar Battery -->
-      <a class="project-card-link" href="https://sites.google.com/ucsd.edu/team13-fruinluongtu/home?authuser=3" target="_blank" rel="noopener noreferrer">
       <div class="project-card reveal">
         <div style="display:flex;align-items:center;flex-wrap:wrap;">
           <div class="project-number">P-003</div>
@@ -703,10 +799,8 @@
           <span class="tag">BOM</span>
         </div>
       </div>
-      </a>
 
       <!-- Line Following Robot -->
-      <a class="project-card-link" href="https://sites.google.com/view/ece5lab4/race-day?authuser=0" target="_blank" rel="noopener noreferrer">
       <div class="project-card reveal">
         <div style="display:flex;align-items:center;flex-wrap:wrap;">
           <div class="project-number">P-004</div>
@@ -724,7 +818,6 @@
           <span class="tag">Debugging</span>
         </div>
       </div>
-      </a>
 
     </div>
   </div>
@@ -755,7 +848,7 @@
       <div class="timeline-item">
         <div class="timeline-date">MAR 2025 — AUG 2025</div>
         <div class="timeline-role">Instructional Assistant — OOP in C++</div>
-        <div class="timeline-org">Prof. Rajeev Sahay · UCSD</div>
+        <div class="timeline-org">UCSD</div>
         <ul class="timeline-bullets">
           <li>Led debugging sessions targeting logic, memory, and design errors.</li>
           <li>Reviewed implementations for correctness, edge cases, and maintainability.</li>
@@ -890,7 +983,7 @@
   <div class="contact-inner reveal">
     <p style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;">05 / Contact</p>
     <h2 class="contact-title">Let's Build<br>Something.</h2>
-    <p class="contact-sub">// Open to research roles and full-time EE positions</p>
+    <p class="contact-sub">// Open to research roles, internships, and full-time EE positions</p>
     <div class="contact-links">
       <a href="mailto:tgtu@ucsd.edu" class="contact-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -914,7 +1007,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 Thanh G. Tu (Andy)</span>
+  <span>© 2026 Thanh Gia Tu (Andy)</span>
   <span>M.S. EE · UCSD · San Jose, CA</span>
 </footer>
 
