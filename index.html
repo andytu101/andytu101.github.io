@@ -105,9 +105,8 @@
   /* ── HERO ── */
   #hero {
     position: relative;
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 8rem 3rem 4rem;
+    display: flex; align-items: flex-start;
+    padding: 6rem 3rem 3rem;
     z-index: 1;
     overflow: hidden;
   }
@@ -860,6 +859,30 @@
     .detail-body { padding: 2rem 1.25rem 4rem; }
     .detail-pdf-frame { height: 480px; }
   }
+  .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    margin: 1rem 0;
+  }
+  .detail-table th {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+  .detail-table td {
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    color: var(--muted);
+    vertical-align: top;
+  }
+  .detail-table tr:nth-child(even) td { background: var(--surface); }
 </style>
 </head>
 <body>
@@ -1061,6 +1084,27 @@
           <span class="tag">Embedded</span>
           <span class="tag">Soldering</span>
           <span class="tag">Debugging</span>
+        </div>
+      </div>
+
+      <!-- Light Shield + Full-Stack Embedded -->
+      <div class="project-card reveal">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;">
+          <div class="project-number">P-005</div>
+          <span class="project-badge">⚡ Full-Stack</span>
+        </div>
+        <div class="project-title">Light Shield + Full-Stack Embedded Control System</div>
+        <div class="project-desc">
+          Built a full-stack embedded lighting system — from hand-soldering SMD components on a custom PCB, writing CircuitPython and Arduino firmware, designing an OnShape enclosure, to developing a SwiftUI BLE app as the wireless GUI client.
+        </div>
+        <div class="project-tags">
+          <span class="tag">PCB Assembly</span>
+          <span class="tag">CircuitPython</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">BLE</span>
+          <span class="tag">SwiftUI</span>
+          <span class="tag">OnShape</span>
+          <span class="tag">SMD Soldering</span>
         </div>
       </div>
 
@@ -1693,6 +1737,178 @@
   </ul>
 </template>
 
+<!-- LIGHT SHIELD TEMPLATE -->
+<template id="tpl-lightshield">
+  <div class="detail-eyebrow">Embedded Systems · P-005</div>
+  <div class="detail-title">Light Shield + Full-Stack Embedded Control System</div>
+  <div class="detail-tags">
+    <span class="tag">PCB Assembly</span>
+    <span class="tag">SMD Soldering</span>
+    <span class="tag">CircuitPython</span>
+    <span class="tag">Arduino</span>
+    <span class="tag">BLE</span>
+    <span class="tag">SwiftUI</span>
+    <span class="tag">OnShape</span>
+    <span class="tag">Firmware</span>
+  </div>
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Project Goal</div>
+  <p class="detail-p">The goal of this project was to build an interactive embedded lighting system from the physical hardware level up to the user interface level. I assembled a Light Shield PCB, integrated it with an EnVision Mini DevBoard, wrote firmware to control the LEDs, designed a physical enclosure, and built a mobile GUI to communicate with the board.</p>
+  <p class="detail-p">The Light Shield assignment was the first part of building a VU Meter system, emphasizing hands-on PCB assembly with SMD components. The DevBoard assignment then added the microcontroller that would drive the Light Shield.</p>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Hardware Assembly</div>
+  <p class="detail-p">I assembled the Light Shield PCB by hand — surface-mount LEDs and 1 kΩ current-limiting resistors, followed by pin headers and a microphone module. Because the board used SMD components, the process required significantly more precision than through-hole assembly.</p>
+
+  <div class="detail-h3">What this covered</div>
+  <ul class="detail-ul">
+    <li>SMD soldering technique</li>
+    <li>LED orientation and polarity checking</li>
+    <li>Resistor placement and inspection</li>
+    <li>Pin header alignment</li>
+    <li>Visual inspection of solder joints</li>
+    <li>Debugging open connections, solder bridges, or reversed LEDs</li>
+    <li>Understanding how physical assembly directly affects circuit behavior</li>
+  </ul>
+
+  <div class="detail-h2">EnVision Mini DevBoard Assembly</div>
+  <p class="detail-p">After the Light Shield, I assembled the EnVision Mini DevBoard — the microcontroller platform used to control the shield. The DevBoard was more complex and required a stencil to apply solder paste before placing components.</p>
+  <ul class="detail-ul">
+    <li>Applying solder paste with a stencil</li>
+    <li>Placing smaller SMD components accurately</li>
+    <li>Inspecting component alignment before reflow</li>
+    <li>Connecting the DevBoard to the Light Shield as the control layer</li>
+  </ul>
+  <div class="detail-highlight">The DevBoard acted as the embedded control layer — the Light Shield was the output board while the DevBoard provided the programmable logic to drive the LEDs and handle communication.</div>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Firmware Development</div>
+  <p class="detail-p">Firmware development happened in two stages. First, I used CircuitPython for fast hardware bring-up — easy to modify and debug while validating the assembled board. Later, the project moved to Arduino to work closer to the hardware level.</p>
+
+  <div class="detail-h3">What this covered</div>
+  <ul class="detail-ul">
+    <li>Configuring microcontroller pins and GPIO</li>
+    <li>Driving LEDs through software control</li>
+    <li>Testing board outputs after assembly</li>
+    <li>Firmware as the bridge between hardware and user commands</li>
+    <li>Transitioning from CircuitPython to Arduino-style embedded control</li>
+  </ul>
+  <p class="detail-p">This made clear that firmware is not just code running on a board — it depends directly on pin mapping, electrical connections, timing, hardware behavior, and communication interfaces.</p>
+
+  <div class="detail-h2">Motor Control and PWM Concepts</div>
+  <p class="detail-p">As part of the embedded systems sequence, I studied DC motor control using a full bridge and pulse-width modulation. The key concept: PWM applies a controlled average voltage by rapidly switching between HIGH and LOW.</p>
+  <div class="detail-code-block">
+    20% duty cycle → motor experiences ~20% of maximum drive<br>
+    Arduino: <strong>analogWrite(pin, 0–255)</strong>
+  </div>
+  <ul class="detail-ul">
+    <li>Full-bridge motor driver operation</li>
+    <li>Direction control via H-bridge switching</li>
+    <li>Duty cycle and average voltage relationship</li>
+    <li>PWM-based torque and speed control</li>
+    <li>Same principle applies to LED brightness, motor control, and most embedded output systems</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Enclosure Design in OnShape</div>
+  <p class="detail-p">I designed an enclosure for the system in OnShape, adding a mechanical design layer to the project. The enclosure had to physically fit the assembled electronics while leaving access to connectors, LEDs, and ports.</p>
+  <ul class="detail-ul">
+    <li>CAD modeling for a real PCB form factor</li>
+    <li>Measuring board dimensions and component clearances</li>
+    <li>Designing mounting points and mechanical fit</li>
+    <li>Thinking about the final product as a physical device, not just a circuit board</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Full-Stack Embedded System</div>
+  <p class="detail-p">The final stage was integrating everything into a full-stack embedded system. In an EE context, "full stack" means covering the complete embedded system hierarchy:</p>
+
+  <table class="detail-table">
+    <thead>
+      <tr><th>Layer</th><th>What I Built</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Hardware</td><td>Light Shield PCB + EnVision Mini DevBoard</td></tr>
+      <tr><td>Firmware</td><td>CircuitPython / Arduino-style embedded control</td></tr>
+      <tr><td>Communication</td><td>BLE between phone and microcontroller</td></tr>
+      <tr><td>User Interface</td><td>SwiftUI mobile GUI</td></tr>
+    </tbody>
+  </table>
+
+  <p class="detail-p">This meant a user could interact with a phone app, send a command wirelessly over BLE, have the microcontroller receive it, and control physical hardware — all in one integrated system.</p>
+
+  <div class="detail-h2">SwiftUI GUI and BLE Communication</div>
+  <p class="detail-p">For the GUI, I used SwiftUI to build a phone interface for the microcontroller. I chose the BLE path over USB, which meant building a Swift app and thinking about the system as two connected devices.</p>
+
+  <div class="detail-h3">BLE Architecture</div>
+  <ul class="detail-ul">
+    <li>Phone acted as the client / user interface</li>
+    <li>Microcontroller acted as the BLE peripheral</li>
+    <li>BLE used the standard service and characteristic model — the app wrote data to a BLE characteristic, and the microcontroller interpreted it as a hardware command</li>
+  </ul>
+
+  <div class="detail-h3">What this covered</div>
+  <ul class="detail-ul">
+    <li>SwiftUI interface design</li>
+    <li>BLE device scanning and connection</li>
+    <li>Reading and writing BLE characteristics</li>
+    <li>Sending user commands from an app to embedded hardware</li>
+    <li>Client/peripheral architecture</li>
+    <li>Debugging communication between software and hardware</li>
+  </ul>
+
+  <div class="detail-highlight">This was one of the most valuable parts of the project — connecting embedded hardware directly to a real user-facing application over wireless communication.</div>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Technical Skills Demonstrated</div>
+
+  <div class="detail-h3">Hardware</div>
+  <ul class="detail-ul">
+    <li>Hand soldering SMD components (LEDs, resistors)</li>
+    <li>PCB assembly, inspection, and bring-up</li>
+    <li>LED polarity/orientation checking</li>
+    <li>DevBoard assembly using solder paste and stencil</li>
+    <li>Board-level debugging</li>
+  </ul>
+
+  <div class="detail-h3">Firmware</div>
+  <ul class="detail-ul">
+    <li>CircuitPython embedded development</li>
+    <li>Arduino-style embedded control</li>
+    <li>GPIO and LED control</li>
+    <li>PWM concepts and application</li>
+    <li>Hardware/software integration</li>
+  </ul>
+
+  <div class="detail-h3">Communication</div>
+  <ul class="detail-ul">
+    <li>BLE communication protocol</li>
+    <li>Client/peripheral system architecture</li>
+    <li>BLE services and characteristics</li>
+    <li>Wireless command transfer between phone and microcontroller</li>
+  </ul>
+
+  <div class="detail-h3">Software / UI</div>
+  <ul class="detail-ul">
+    <li>Swift and SwiftUI</li>
+    <li>Mobile GUI development</li>
+    <li>User input handling connected to embedded device behavior</li>
+  </ul>
+
+  <div class="detail-h3">Mechanical Design</div>
+  <ul class="detail-ul">
+    <li>OnShape CAD modeling</li>
+    <li>Enclosure design with board fit and component clearance</li>
+    <li>Product-level physical integration</li>
+  </ul>
+</template>
+
 <script>
   // ── Custom cursor ──
   const cursor = document.getElementById('cursor');
@@ -1747,13 +1963,17 @@
       title: 'Line Following Robot',
       tags: ['PID Control','Eagle','Embedded','Soldering','Debugging'],
       externalUrl: 'https://sites.google.com/view/ece5lab4/poster?authuser=0'
+    },
+    'lightshield': {
+      crumb: 'Light Shield',
+      template: 'tpl-lightshield'
     }
   };
 
   // Assign data-project to each card
   document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.project-card');
-    const keys = ['robot','viterbi','ecg','solar','robot-line'];
+    const keys = ['robot','viterbi','ecg','solar','robot-line','lightshield'];
     cards.forEach((card, i) => {
       if (keys[i]) {
         card.dataset.project = keys[i];
