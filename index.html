@@ -790,6 +790,71 @@
     border: 1px dashed var(--border);
   }
 
+  .detail-img-wrap {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--card);
+  }
+  .detail-img-wrap img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .detail-img-caption {
+    padding: 0.5rem 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  .detail-highlight {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--text);
+    border-radius: 2px;
+  }
+
+  .detail-external-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(0,116,217,0.3);
+    padding: 0.45rem 1rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+    margin-bottom: 1.5rem;
+    margin-top: 0.25rem;
+  }
+  .detail-external-link:hover {
+    background: rgba(0,116,217,0.06);
+    border-color: var(--accent);
+  }
+
+  .detail-component-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1rem 1.25rem;
+    margin: 0.6rem 0;
+  }
+  .detail-component-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
   @media (max-width: 768px) {
     .detail-nav { padding: 0.8rem 1.25rem; }
     .detail-body { padding: 2rem 1.25rem 4rem; }
@@ -1351,6 +1416,291 @@
   </div>
 </template>
 
+<!-- ECG PROJECT TEMPLATE -->
+<template id="tpl-ecg">
+  <div class="detail-eyebrow">Analog IC · P-002</div>
+  <div class="detail-title">Low-Power Low-Noise ECG with DRL Circuit</div>
+  <div class="detail-tags">
+    <span class="tag">Cadence</span>
+    <span class="tag">OTA Design</span>
+    <span class="tag">Biomedical</span>
+    <span class="tag">SPICE</span>
+    <span class="tag">Monte Carlo</span>
+    <span class="tag">PMOS</span>
+    <span class="tag">Low Power</span>
+  </div>
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">ECG Basics</div>
+  <ul class="detail-ul">
+    <li>ECG measures the heart's electrical activity through skin electrodes.</li>
+    <li>Desired signal is very small: <strong>~0.5–5 mV</strong>, across a frequency range of <strong>0.05–150 Hz</strong> (QRS complex mainly 10–40 Hz).</li>
+    <li>The ECG signal sits on top of much larger common-mode noise — 60 Hz AC mains pickup can be hundreds of mV or even volts.</li>
+    <li>The circuit must extract the small signal while rejecting that large interference.</li>
+  </ul>
+
+  <div class="detail-h2">Key Circuit Requirements</div>
+  <div class="detail-component-card">
+    <div class="detail-component-name">High Input Impedance</div>
+    <ul class="detail-ul"><li>Prevents loading the electrodes and preserves the weak ECG signal.</li></ul>
+  </div>
+  <div class="detail-component-card">
+    <div class="detail-component-name">High CMRR</div>
+    <ul class="detail-ul"><li>Rejects common-mode interference — removes 60 Hz mains noise.</li></ul>
+  </div>
+  <div class="detail-component-card">
+    <div class="detail-component-name">Low Input-Referred Noise</div>
+    <ul class="detail-ul"><li>Keeps the circuit's own noise below the ECG signal level — critical since ECG signals are in the µV-to-mV range.</li></ul>
+  </div>
+  <div class="detail-component-card">
+    <div class="detail-component-name">Low Power</div>
+    <ul class="detail-ul"><li>Essential for wearable or implantable systems.</li></ul>
+  </div>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Driven Right Leg (DRL) Circuit</div>
+  <ul class="detail-ul">
+    <li>DRL does not directly ground the patient — it <em>actively drives</em> a third electrode (usually on the right leg).</li>
+    <li>Senses the common-mode voltage from the ECG inputs, inverts it, and feeds it back into the body through the third electrode.</li>
+    <li>This actively cancels common-mode interference on the body, improving effective CMRR.</li>
+    <li>Forms a feedback loop — so stability is a design concern.</li>
+  </ul>
+
+  <div class="detail-h2">OTA and PMOS Input Pair</div>
+  <ul class="detail-ul">
+    <li>An OTA (Operational Transconductance Amplifier) converts input voltage difference into output current: <em>I_out ∝ g_m · V_in</em>.</li>
+    <li>Useful in low-power analog front ends, filters, integrators, and gain stages.</li>
+    <li>A <strong>PMOS input differential pair</strong> was chosen because PMOS devices typically exhibit lower 1/f (flicker) noise than NMOS.</li>
+    <li>At low frequencies like the ECG band, flicker noise can dominate over thermal noise — making the input device choice critical.</li>
+  </ul>
+
+  <div class="detail-h2">Device Sizing and Layout</div>
+  <ul class="detail-ul">
+    <li>Larger input transistor area (W·L) reduces 1/f noise and improves matching — at the cost of more area and higher parasitic capacitance.</li>
+    <li>Higher bias current increases g_m, improving gain and reducing thermal noise, at the cost of more power.</li>
+    <li><strong>Multi-finger layout</strong> splits a wide transistor into smaller parallel fingers:
+      <ul>
+        <li>Lower gate resistance</li>
+        <li>Better matching and layout symmetry</li>
+        <li>Reduced sensitivity to thermal and process gradients</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Cadence Simulations</div>
+
+  <div class="detail-h3">AC Analysis</div>
+  <ul class="detail-ul">
+    <li>Checked small-signal frequency response: gain and bandwidth via Bode plot.</li>
+  </ul>
+
+  <div class="detail-h3">Noise Analysis</div>
+  <ul class="detail-ul">
+    <li>Measured input-referred noise spectral density.</li>
+    <li>Integrated noise over the ECG bandwidth (0.05–150 Hz).</li>
+    <li>Target: &lt; 4 µW total power, with noise well below ECG signal floor.</li>
+  </ul>
+
+  <div class="detail-h3">Stability Analysis</div>
+  <ul class="detail-ul">
+    <li>Checked phase margin and gain margin of the DRL feedback loop.</li>
+    <li>Target: &gt; 60° phase margin to ensure robust stability.</li>
+  </ul>
+
+  <div class="detail-h3">Monte Carlo Mismatch</div>
+  <ul class="detail-ul">
+    <li>Ran many simulations with randomized device mismatch.</li>
+    <li>Verified performance across manufacturing variation — important for real silicon yield.</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-pdf-section">
+    <div class="detail-pdf-label">Project Report</div>
+    <iframe class="detail-pdf-frame"
+      src="assets/ECGfrontend.pdf"
+      title="ECG Analog Front-End Report">
+    </iframe>
+    <p class="detail-p" style="margin-top:0.75rem;font-size:0.72rem;">
+      If the PDF does not load, place <code>ECGfrontend.pdf</code> in an <code>assets/</code> folder next to this HTML file, or
+      <a href="assets/ECGfrontend.pdf" target="_blank" style="color:var(--accent);">open it directly</a>.
+    </p>
+  </div>
+</template>
+
+<!-- SOLAR BATTERY TEMPLATE -->
+<template id="tpl-solar">
+  <div class="detail-eyebrow">PCB Design · Power Electronics · P-003</div>
+  <div class="detail-title">Solar-Powered Battery Bank with Signal Amplifier</div>
+  <div class="detail-tags">
+    <span class="tag">PCB Layout</span>
+    <span class="tag">KiCad</span>
+    <span class="tag">Arduino</span>
+    <span class="tag">Power Systems</span>
+    <span class="tag">BOM</span>
+    <span class="tag">Li-ion</span>
+    <span class="tag">MPPT</span>
+  </div>
+
+  <a class="detail-external-link" href="https://sites.google.com/ucsd.edu/team13-fruinluongtu/home?authuser=3" target="_blank" rel="noopener">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    View Project Site
+  </a>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Overview</div>
+  <p class="detail-p">I led the PCB design — schematic capture, layout, and bring-up. The system charges four 18650 lithium-ion batteries (enough capacity to fully charge three iPhones) from either 10 parallel solar panels at 6V or via micro-USB input.</p>
+
+  <div class="detail-img-wrap">
+    <iframe src="assets/BatteryPackSchemPhoto.pdf" style="width:100%;height:480px;border:none;display:block;" title="Battery Pack Schematic"></iframe>
+    <div class="detail-img-caption">Battery pack schematic — charging IC, boost converter, and protection architecture.</div>
+  </div>
+
+  <div class="detail-h2">Charging Architecture</div>
+  <ul class="detail-ul">
+    <li><strong>Two input paths:</strong> a 6V solar panel array (10 small panels in parallel for higher current) or a micro-USB port — both feeding into the same charging input.</li>
+  </ul>
+  <div class="detail-h3">Input Protection</div>
+  <ul class="detail-ul">
+    <li>MOSFET configured for reverse current protection — current only flows into the battery, not back out into the panel or USB port.</li>
+    <li>Schottky diode for reverse polarity protection — guards against accidental reverse connection (solar panels can briefly produce reverse current in low-light conditions).</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Key Components</div>
+
+  <div class="detail-component-card">
+    <div class="detail-component-name">CN3063 — Charging IC</div>
+    <ul class="detail-ul">
+      <li>Solar-optimized Li-ion charger with built-in MPPT (Maximum Power Point Tracking).</li>
+      <li>Solar panels have a non-linear V-I curve — MPPT continuously adjusts the load to keep the panel at its peak power point, maximizing harvested energy.</li>
+      <li>A naive charger like the TP4056 would clamp the panel voltage and waste available power. The CN3063 avoids this.</li>
+      <li>CHRG and DONE pins drive status LEDs for user feedback.</li>
+    </ul>
+  </div>
+
+  <div class="detail-component-card">
+    <div class="detail-component-name">Battery Pack — 4× 18650 Li-ion (4P configuration)</div>
+    <ul class="detail-ul">
+      <li>Cells arranged in parallel (4P) — voltage stays at single-cell level (~3.7V nominal, 4.2V full), but capacity and current capability are quadrupled.</li>
+      <li>Note: real high-quality 18650s top out around 3500 mAh; most quality cells are 2500–3000 mAh.</li>
+    </ul>
+  </div>
+
+  <div class="detail-component-card">
+    <div class="detail-component-name">MT3608 — Boost Converter</div>
+    <ul class="detail-ul">
+      <li>Steps ~3.7V battery voltage up to 5V for USB output.</li>
+      <li>Output voltage set by R3 (150 kΩ) / R4 (70 kΩ) feedback resistor divider per the standard MT3608 application formula.</li>
+    </ul>
+  </div>
+
+  <div class="detail-component-card">
+    <div class="detail-component-name">SY6280AAC — Overcurrent Protection</div>
+    <ul class="detail-ul">
+      <li>Load switch with current-limit protection set by R5.</li>
+      <li>If output current exceeds the threshold, the IC shuts down to protect the connected device and the pack.</li>
+    </ul>
+  </div>
+
+  <div class="detail-component-card">
+    <div class="detail-component-name">On/Off Toggle — AO3400A MOSFET</div>
+    <ul class="detail-ul">
+      <li>Hardware switch in series with the battery to prevent parasitic discharge when not in use.</li>
+      <li>MOSFET gated by the switch with a 1 MΩ pull-down resistor.</li>
+    </ul>
+  </div>
+
+  <div class="detail-component-card">
+    <div class="detail-component-name">Output — Dual USB-A Ports</div>
+    <ul class="detail-ul">
+      <li>One for charging a phone, one originally intended to power the cellular amplifier.</li>
+      <li>Each has 1 nF capacitors on data lines for ESD/EMI filtering.</li>
+    </ul>
+  </div>
+
+  <div class="detail-h3">0201 Components and the Soldering Disaster</div>
+  <ul class="detail-ul">
+    <li>Used 0201 capacitors — they kept blowing off the board in the reflow oven.</li>
+    <li>Fixed it by switching to hotplate reflow instead.</li>
+    <li>Lesson: next time I'd eliminate 0201s and use 0603 or larger. Assembly reliability matters more than the minor area savings.</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Cellular Amplifier — What Went Wrong</div>
+
+  <div class="detail-img-wrap">
+    <img src="assets/Cellular_PCB_Layout.png" alt="Cellular amplifier PCB layout">
+    <div class="detail-img-caption">Cellular amplifier PCB — built with an LM741 op-amp and hand-bent steel-wire antennas.</div>
+  </div>
+
+  <ul class="detail-ul">
+    <li>The amplifier did not work as expected — it used an LM741 op-amp with hand-bent steel-wire antennas.</li>
+  </ul>
+
+  <div class="detail-h3">Main Issue: LM741 Bandwidth Limitation</div>
+  <ul class="detail-ul">
+    <li>LM741 has a gain-bandwidth product of only ~1 MHz.</li>
+    <li>Cellular signals operate at 700 MHz – 2.5 GHz — far beyond what the LM741 can handle.</li>
+    <li>A 1 MHz op-amp simply cannot amplify a GHz-range signal.</li>
+  </ul>
+
+  <div class="detail-h3">Antenna Issues</div>
+  <ul class="detail-ul">
+    <li>Hand-bent steel wire — steel is not ideal for RF vs. copper.</li>
+    <li>Antenna length was not tuned to the cellular frequency, reducing pickup and radiation efficiency.</li>
+  </ul>
+
+  <div class="detail-highlight">
+    Main lesson: RF circuits need components designed for RF. For GHz signals the design needs an RF amplifier or LNA, proper impedance matching, a tuned antenna, and appropriate high-frequency PCB layout. RF design is not just "normal analog at higher frequency."
+  </div>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">PCB Design Process</div>
+
+  <div class="detail-img-wrap">
+    <img src="assets/Cellular_Schematic.png" alt="Cellular amplifier schematic">
+    <div class="detail-img-caption">Schematic capture showing IC selection, protection circuits, and charge/boost architecture.</div>
+  </div>
+
+  <ul class="detail-ul">
+    <li>Started by defining what the system needed: charge from solar or USB, store energy in 18650s, provide regulated 5V USB output.</li>
+    <li>Selected ICs based on DigiKey availability, documentation quality, and fit for the system requirements.</li>
+    <li>Built the schematic around IC reference circuits, then added supporting components for regulation, protection, and status indication.</li>
+    <li>Added input protection on both solar and USB inputs: MOSFET + Schottky diode for reverse current and reverse polarity protection.</li>
+  </ul>
+
+  <div class="detail-h2">PCB Layout Decisions</div>
+
+  <div class="detail-img-wrap">
+    <img src="assets/Battery_PCB_Layout.png" alt="Battery bank PCB layout">
+    <div class="detail-img-caption">Final PCB layout — switching converter centered with tight capacitor placement and ground plane return paths.</div>
+  </div>
+
+  <ul class="detail-ul">
+    <li>Prioritized the switching converter section first — it has the tightest layout requirements.</li>
+    <li>Placed input and output ceramic capacitors directly next to IC pins, minimizing switching loop area.</li>
+    <li>Long traces add inductance → voltage spikes, EMI, and ringing. Tight layout prevents this.</li>
+    <li>Used a ground plane for clean return paths throughout the board.</li>
+    <li>Wide traces on high-current paths — the boost converter input can draw ~2 A, so trace width was sized accordingly to reduce voltage drop and heating.</li>
+    <li>Arranged remaining sections (charging IC, protection MOSFETs, battery connections, USB output) based on current flow direction.</li>
+  </ul>
+
+  <div class="detail-h3">What I Would Do Differently</div>
+  <ul class="detail-ul">
+    <li>Default to 0603 or 0805 passives — 0201s caused major assembly problems.</li>
+    <li>Assembly reliability is more important than minor area savings on a one-off prototype.</li>
+    <li>For the amplifier: choose an RF-appropriate component from the start (LNA, proper matching network, tuned antenna).</li>
+  </ul>
+</template>
+
 <script>
   // ── Custom cursor ──
   const cursor = document.getElementById('cursor');
@@ -1392,17 +1742,11 @@
     },
     'ecg': {
       crumb: 'ECG Analog Front-End',
-      template: 'tpl-generic',
-      label: 'Analog IC · P-002',
-      title: 'Low-Power Low-Noise ECG with DRL Circuit',
-      tags: ['Cadence','OTA Design','Biomedical','SPICE','Monte Carlo']
+      template: 'tpl-ecg'
     },
     'solar': {
       crumb: 'Solar Battery Bank',
-      template: 'tpl-generic',
-      label: 'PCB / Power · P-003',
-      title: 'Solar-Powered Battery Bank with Signal Amplifier',
-      tags: ['PCB Layout','KiCad','Arduino','Power Systems','BOM']
+      template: 'tpl-solar'
     },
     'robot-line': {
       crumb: 'Line Following Robot',
