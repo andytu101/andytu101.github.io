@@ -124,10 +124,10 @@
   }
 
   .hero-name {
-    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
     opacity: 0;
     animation: fadeUp 0.8s 0.4s forwards;
@@ -614,6 +614,187 @@
     .hero-circuit { display: none; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
+
+  /* ── PROJECT CARDS — clickable ── */
+  .project-card { cursor: pointer; }
+
+  /* ── PROJECT DETAIL OVERLAY ── */
+  #project-detail {
+    display: none;
+    position: fixed; inset: 0;
+    z-index: 500;
+    background: var(--bg);
+    overflow-y: auto;
+  }
+  #project-detail.active { display: block; }
+
+  .detail-nav {
+    position: sticky; top: 0;
+    background: rgba(245,245,250,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 3rem;
+    display: flex; align-items: center; gap: 1.5rem;
+    z-index: 10;
+  }
+  .detail-back {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    background: none;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .detail-back:hover { background: var(--accent); color: #fff; }
+  .detail-breadcrumb {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .detail-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 3rem 6rem;
+  }
+
+  .detail-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .detail-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .detail-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.5rem; }
+  .detail-tags .tag { border-color: rgba(0,116,217,0.25); color: var(--accent); }
+
+  .detail-divider {
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+    margin: 2rem 0;
+  }
+
+  .detail-h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+    color: var(--text);
+  }
+  .detail-h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .detail-p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .detail-ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.35rem;
+    margin-bottom: 0.8rem;
+  }
+  .detail-ul li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.65;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .detail-ul li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--accent2);
+  }
+  .detail-ul li ul { margin-top: 0.35rem; padding-left: 1.2rem; }
+  .detail-ul li ul li::before { content: '–'; color: var(--muted); }
+
+  .detail-flow {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text);
+    line-height: 2;
+  }
+  .detail-flow .arrow { color: var(--accent); margin: 0 0.25rem; }
+
+  .detail-code-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text);
+    border-radius: 2px;
+  }
+
+  .detail-pdf-section { margin-top: 3rem; }
+  .detail-pdf-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .detail-pdf-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+  .detail-pdf-frame {
+    width: 100%;
+    height: 780px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--card);
+  }
+  .detail-pdf-fallback {
+    display: none;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border: 1px dashed var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .detail-nav { padding: 0.8rem 1.25rem; }
+    .detail-body { padding: 2rem 1.25rem 4rem; }
+    .detail-pdf-frame { height: 480px; }
+  }
 </style>
 </head>
 <body>
@@ -1010,8 +1191,168 @@
   <span>M.S. EE · UCSD · San Jose, CA</span>
 </footer>
 
+<!-- PROJECT DETAIL OVERLAY -->
+<div id="project-detail">
+  <div class="detail-nav">
+    <button class="detail-back" onclick="closeDetail()">← Back</button>
+    <span class="detail-breadcrumb">Projects / <span id="detail-crumb"></span></span>
+  </div>
+  <div class="detail-body" id="detail-content"></div>
+</div>
+
+<!-- VITERBI PROJECT PAGE TEMPLATE -->
+<template id="tpl-viterbi">
+  <div class="detail-eyebrow">RTL / Verification &nbsp;·&nbsp; P-001</div>
+  <div class="detail-title">Viterbi Decoder — RTL Verification</div>
+  <div class="detail-tags">
+    <span class="tag">SystemVerilog</span>
+    <span class="tag">ModelSim</span>
+    <span class="tag">RTL</span>
+    <span class="tag">Error Correction</span>
+    <span class="tag">Convolutional Coding</span>
+    <span class="tag">Quartus</span>
+  </div>
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Project Overview</div>
+  <ul class="detail-ul">
+    <li><strong>Purpose:</strong> Model a digital communication system that can recover data even when bits are corrupted.</li>
+    <li><strong>Big idea:</strong> Encode data with redundancy, send it through a noisy channel, then decode the most likely original bit sequence.</li>
+  </ul>
+
+  <div class="detail-h2">System Flow</div>
+  <div class="detail-flow">
+    Original input bits
+    <span class="arrow">→</span> Convolutional Encoder
+    <span class="arrow">→</span> 2-bit encoded symbols
+    <span class="arrow">→</span> Noisy channel / possible bit flips
+    <span class="arrow">→</span> Viterbi Decoder
+    <span class="arrow">→</span> Recovered original bits
+  </div>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Encoder</div>
+  <ul class="detail-ul">
+    <li>Used an 8-state convolutional encoder.</li>
+    <li>For each input bit, the encoder produced a 2-bit output.</li>
+    <li>The output depended on the current state and the new input bit.</li>
+    <li><strong>Important:</strong> The decoder had to match this exact encoder's state-transition table — a different encoder would not work correctly with this decoder.</li>
+  </ul>
+
+  <div class="detail-h2">Decoder</div>
+  <ul class="detail-ul">
+    <li>The decoder used the Viterbi algorithm.</li>
+    <li><strong>Goal:</strong> Find the most likely original bit sequence.</li>
+    <li>It did this by tracking possible paths through a trellis — a map of possible encoder states over time.</li>
+  </ul>
+
+  <div class="detail-h2">Main Decoder Blocks</div>
+
+  <div class="detail-h3">Branch Metric Computation — BMC</div>
+  <ul class="detail-ul">
+    <li>Compared the received 2-bit symbol to the expected 2-bit symbol.</li>
+    <li>Measured how many bits were different (Hamming distance) — this became the branch metric.</li>
+    <li>If there were no errors, the correct branch metric would be 0.</li>
+  </ul>
+  <div class="detail-code-block">
+    Expected: 00 &nbsp;·&nbsp; Received: 01 &nbsp;→&nbsp; Difference: 1 bit &nbsp;→&nbsp; Branch metric = 1
+  </div>
+
+  <div class="detail-h3">Add-Compare-Select — ACS</div>
+  <ul class="detail-ul">
+    <li>Main decision-making block.</li>
+    <li>Computed: <em>path cost = previous path metric + branch metric</em></li>
+    <li>Compared possible paths and selected the lower-cost (survivor) path.</li>
+  </ul>
+
+  <div class="detail-h3">Trellis Memory</div>
+  <ul class="detail-ul">
+    <li>Stored survivor path decisions over time.</li>
+    <li>Kept track of which path was most likely for each state across multiple clock cycles.</li>
+  </ul>
+
+  <div class="detail-h3">Traceback Unit — TBU</div>
+  <ul class="detail-ul">
+    <li>Walked backward through the stored survivor paths.</li>
+    <li>Reconstructed the most likely original input bits.</li>
+    <li>Final stage that produced the decoded output.</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-h2">Verification Work</div>
+  <ul class="detail-ul">
+    <li>Verified the decoder in ModelSim/Questa with self-checking testbenches.</li>
+    <li>Confirmed decoded output matched the original input when no errors were injected.</li>
+    <li>Used simulation logs and waveforms to debug timing and logic behavior.</li>
+    <li>Confirmed the RTL synthesized correctly using Quartus.</li>
+  </ul>
+
+  <div class="detail-h2">Error Injection Testing</div>
+  <ul class="detail-ul">
+    <li>After baseline verification, intentionally corrupted the channel with controlled bit flips:
+      <ul>
+        <li>Flipping bit [0], bit [1], or both</li>
+        <li>Injecting consecutive bad bits (bursts)</li>
+        <li>Randomized error injection</li>
+      </ul>
+    </li>
+    <li>Goal: identify what error patterns the decoder could correct and where it started to fail.</li>
+  </ul>
+
+  <div class="detail-h2">Key Result</div>
+  <ul class="detail-ul">
+    <li>The decoder handled shorter error bursts correctly.</li>
+    <li>It began failing when too many consecutive bits were corrupted (≥ 4 in a row).</li>
+    <li><strong>Takeaway:</strong> A Viterbi decoder corrects errors by finding the most likely full path, not just individual bits — but if consecutive errors overwhelm the path metric, the wrong path can win.</li>
+  </ul>
+
+  <div class="detail-h2">My Contributions</div>
+  <ul class="detail-ul">
+    <li>Helped complete and validate all main decoder RTL blocks: BMC, ACS, trellis memory, and traceback unit.</li>
+    <li>Ran ModelSim simulations to verify correctness at each stage.</li>
+    <li>Tested error cases using controlled and randomized bit-flip injection.</li>
+    <li>Used simulation logs, waveforms, and RTL/synthesis views for debugging.</li>
+  </ul>
+
+  <div class="detail-h2">What I Learned</div>
+  <ul class="detail-ul">
+    <li>How to decompose a digital system into independently verifiable RTL modules.</li>
+    <li>How to debug RTL behavior using simulation waveforms and transcript logs.</li>
+    <li>How error-correction logic works at the hardware level.</li>
+    <li>How to stress-test a design with fault injection beyond the ideal case.</li>
+    <li>How to identify the reliability limits of a digital design.</li>
+  </ul>
+
+  <div class="detail-divider"></div>
+
+  <div class="detail-pdf-section">
+    <div class="detail-pdf-label">Project Report</div>
+    <iframe class="detail-pdf-frame"
+      src="assets/ECE111-TermProject.pdf"
+      title="ECE 111 Term Project Report — The Viterbi Algorithm">
+    </iframe>
+    <p class="detail-p" style="margin-top:0.75rem;font-size:0.72rem;">
+      If the PDF does not load, place <code>ECE111-TermProject.pdf</code> in an <code>assets/</code> folder next to this HTML file, or
+      <a href="assets/ECE111-TermProject.pdf" target="_blank" style="color:var(--accent);">open it directly</a>.
+    </p>
+  </div>
+</template>
+
+<!-- GENERIC "COMING SOON" TEMPLATE -->
+<template id="tpl-generic">
+  <div class="detail-eyebrow" id="generic-label"></div>
+  <div class="detail-title" id="generic-title"></div>
+  <div class="detail-tags" id="generic-tags"></div>
+  <div class="detail-divider"></div>
+  <div class="detail-p" style="text-align:center;padding:4rem 0;color:var(--muted);">
+    Detailed write-up coming soon.
+  </div>
+</template>
+
 <script>
-  // Custom cursor
+  // ── Custom cursor ──
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1024,7 +1365,7 @@
   }
   animateCursor();
 
-  // Scroll reveal
+  // ── Scroll reveal ──
   const reveals = document.querySelectorAll('.reveal, .timeline-item');
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
@@ -1035,6 +1376,95 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => obs.observe(el));
+
+  // ── Project detail system ──
+  const projectData = {
+    'viterbi': {
+      crumb: 'Viterbi Decoder',
+      template: 'tpl-viterbi'
+    },
+    'robot': {
+      crumb: 'AI Robotic Arm',
+      template: 'tpl-generic',
+      label: 'Robotics / ML · P-000',
+      title: 'AI-Driven Robotic Arm (SO-ARM101)',
+      tags: ['Robotics','3D Printing','Imitation Learning','Python','Servo Control','VLA']
+    },
+    'ecg': {
+      crumb: 'ECG Analog Front-End',
+      template: 'tpl-generic',
+      label: 'Analog IC · P-002',
+      title: 'Low-Power Low-Noise ECG with DRL Circuit',
+      tags: ['Cadence','OTA Design','Biomedical','SPICE','Monte Carlo']
+    },
+    'solar': {
+      crumb: 'Solar Battery Bank',
+      template: 'tpl-generic',
+      label: 'PCB / Power · P-003',
+      title: 'Solar-Powered Battery Bank with Signal Amplifier',
+      tags: ['PCB Layout','KiCad','Arduino','Power Systems','BOM']
+    },
+    'robot-line': {
+      crumb: 'Line Following Robot',
+      template: 'tpl-generic',
+      label: 'Embedded / PCB · P-004',
+      title: 'Line Following Robot',
+      tags: ['PID Control','Eagle','Embedded','Soldering','Debugging']
+    }
+  };
+
+  // Assign data-project to each card
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.project-card');
+    const keys = ['robot','viterbi','ecg','solar','robot-line'];
+    cards.forEach((card, i) => {
+      if (keys[i]) {
+        card.dataset.project = keys[i];
+        card.addEventListener('click', () => openDetail(keys[i]));
+      }
+    });
+  });
+
+  function openDetail(key) {
+    const data = projectData[key];
+    if (!data) return;
+    const overlay = document.getElementById('project-detail');
+    const content = document.getElementById('detail-content');
+    const crumb = document.getElementById('detail-crumb');
+    crumb.textContent = data.crumb;
+
+    const tpl = document.getElementById(data.template);
+    const clone = tpl.content.cloneNode(true);
+
+    // Populate generic template fields if needed
+    if (data.template === 'tpl-generic') {
+      clone.getElementById('generic-label').textContent = data.label;
+      clone.getElementById('generic-title').textContent = data.title;
+      const tagsEl = clone.getElementById('generic-tags');
+      data.tags.forEach(t => {
+        const s = document.createElement('span');
+        s.className = 'tag';
+        s.textContent = t;
+        tagsEl.appendChild(s);
+      });
+    }
+
+    content.innerHTML = '';
+    content.appendChild(clone);
+    overlay.classList.add('active');
+    overlay.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetail() {
+    document.getElementById('project-detail').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDetail();
+  });
 </script>
 </body>
 </html>
