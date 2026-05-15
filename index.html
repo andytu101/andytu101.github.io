@@ -7,14 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #13131a;
-    --border: #1e1e2e;
-    --accent: #00e5ff;
-    --accent2: #7c3aed;
-    --text: #e8e8f0;
-    --muted: #6b6b80;
-    --card: #0f0f18;
+    --bg: #f5f5fa;
+    --surface: #ebebf4;
+    --border: #d0d0e2;
+    --accent: #0074d9;
+    --accent2: #6d28d9;
+    --text: #0f0f1a;
+    --muted: #5a5a72;
+    --card: #ffffff;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +39,6 @@
     z-index: 9999;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease, width 0.2s, height 0.2s, background 0.2s;
-    mix-blend-mode: difference;
   }
   .cursor-ring {
     width: 36px; height: 36px;
@@ -68,8 +67,8 @@
     content: '';
     position: fixed; inset: 0;
     background-image:
-      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(0,116,217,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,116,217,0.05) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: 0;
@@ -81,7 +80,7 @@
     z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.2rem 3rem;
-    background: rgba(10,10,15,0.85);
+    background: rgba(245,245,250,0.88);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -136,7 +135,7 @@
   .hero-name span {
     display: block;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(0,229,255,0.4);
+    -webkit-text-stroke: 1px rgba(0,116,217,0.35);
   }
 
   .hero-sub {
@@ -171,7 +170,7 @@
     color: var(--bg);
     font-weight: 600;
   }
-  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+  .btn-primary:hover { background: #005bb5; transform: translateY(-2px); }
   .btn-ghost {
     border: 1px solid var(--border);
     color: var(--muted);
@@ -302,8 +301,8 @@
     transition: all 0.2s;
   }
   .project-card:hover .tag {
-    border-color: rgba(0,229,255,0.25);
-    color: rgba(0,229,255,0.6);
+    border-color: rgba(0,116,217,0.3);
+    color: rgba(0,116,217,0.75);
   }
 
   .project-badge {
@@ -311,9 +310,9 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.6rem;
     padding: 0.15rem 0.5rem;
-    background: rgba(0,229,255,0.1);
+    background: rgba(0,116,217,0.08);
     color: var(--accent);
-    border: 1px solid rgba(0,229,255,0.3);
+    border: 1px solid rgba(0,116,217,0.25);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     border-radius: 2px;
@@ -346,7 +345,7 @@
     justify-content: center;
     gap: 0.75rem;
     background: linear-gradient(135deg, var(--bg), var(--surface));
-    border: 1px dashed rgba(0,229,255,0.2);
+    border: 1px dashed rgba(0,116,217,0.25);
     color: var(--muted);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
@@ -453,7 +452,7 @@
     border-radius: 2px;
     transition: border-color 0.3s;
   }
-  .skill-group:hover { border-color: rgba(0,229,255,0.3); }
+  .skill-group:hover { border-color: rgba(0,116,217,0.3); }
 
   .skill-group-title {
     font-family: 'IBM Plex Mono', monospace;
@@ -482,7 +481,7 @@
   .skill-item:hover {
     border-color: var(--accent2);
     color: var(--accent);
-    background: rgba(124,58,237,0.1);
+    background: rgba(109,40,217,0.08);
   }
 
   /* ── EDUCATION ── */
@@ -499,7 +498,7 @@
     padding: 1.75rem;
     transition: border-color 0.3s;
   }
-  .edu-card:hover { border-color: rgba(0,229,255,0.3); }
+  .edu-card:hover { border-color: rgba(0,116,217,0.35); }
 
   .edu-icon {
     width: 44px; height: 44px;
@@ -568,7 +567,7 @@
   .contact-link:hover {
     color: var(--accent);
     border-color: var(--accent);
-    background: rgba(0,229,255,0.05);
+    background: rgba(0,116,217,0.06);
     transform: translateY(-2px);
   }
 
