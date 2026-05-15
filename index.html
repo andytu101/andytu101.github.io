@@ -237,8 +237,8 @@
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5px;
+    grid-template-columns: 1fr;
+    gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
   }
@@ -249,6 +249,10 @@
     transition: background 0.3s;
     position: relative;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
   }
   .project-card::before {
     content: '';
@@ -260,6 +264,25 @@
   }
   .project-card:hover { background: var(--surface); }
   .project-card:hover::before { height: 100%; }
+
+  /* Project image on the right side */
+  .project-img {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--surface);
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+  .project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
   .project-number {
     font-family: 'IBM Plex Mono', monospace;
@@ -353,21 +376,14 @@
     opacity: 0.4;
   }
 
-  /* Featured card spans full width */
-  .project-card.featured {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: start;
-  }
-  .project-card.featured .project-content { /* text side */ }
-  .project-card.featured .project-media { /* video side */ }
+  /* Featured card — same two-column layout, already inherits from .project-card */
+  .project-card.featured { /* inherits grid layout from .project-card */ }
 
   @media (max-width: 768px) {
-    .project-card.featured {
+    .project-card, .project-card.featured {
       grid-template-columns: 1fr;
     }
+    .project-img { min-height: 180px; }
   }
 
   /* ── EXPERIENCE ── */
@@ -1014,97 +1030,122 @@
 
       <!-- Viterbi Decoder -->
       <div class="project-card reveal">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-001</div>
-          <span class="project-badge">RTL / Verification</span>
+        <div class="project-content">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;">
+            <div class="project-number">P-001</div>
+            <span class="project-badge">RTL / Verification</span>
+          </div>
+          <div class="project-title">Viterbi Decoder — RTL Verification</div>
+          <div class="project-desc">
+            Full convolutional encoder/decoder system in SystemVerilog with self-checking testbenches. Validated BMC, ACS, Trellis, and Traceback units with injected bit-error stress testing and corner-case waveform analysis.
+          </div>
+          <div class="project-tags">
+            <span class="tag">SystemVerilog</span>
+            <span class="tag">ModelSim</span>
+            <span class="tag">RTL</span>
+            <span class="tag">Error Correction</span>
+          </div>
         </div>
-        <div class="project-title">Viterbi Decoder — RTL Verification</div>
-        <div class="project-desc">
-          Full convolutional encoder/decoder system in SystemVerilog with self-checking testbenches. Validated BMC, ACS, Trellis, and Traceback units with injected bit-error stress testing and corner-case waveform analysis.
-        </div>
-        <div class="project-tags">
-          <span class="tag">SystemVerilog</span>
-          <span class="tag">ModelSim</span>
-          <span class="tag">RTL</span>
-          <span class="tag">Error Correction</span>
+        <div class="project-img">
+          <img src="assets/viterbi.png" alt="Viterbi Decoder waveform">
         </div>
       </div>
 
       <!-- ECG -->
       <div class="project-card reveal">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-002</div>
-          <span class="project-badge">Analog IC</span>
+        <div class="project-content">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;">
+            <div class="project-number">P-002</div>
+            <span class="project-badge">Analog IC</span>
+          </div>
+          <div class="project-title">Low-Power Low-Noise ECG with DRL Circuit</div>
+          <div class="project-desc">
+            Analog front-end capturing μV-level biosignals under large common-mode interference. Custom PMOS OTA with multi-finger layout, bias tuning, and &lt;4μW power. Verified with Cadence AC, noise, stability, and Monte Carlo analysis.
+          </div>
+          <div class="project-tags">
+            <span class="tag">Cadence</span>
+            <span class="tag">OTA Design</span>
+            <span class="tag">Biomedical</span>
+            <span class="tag">SPICE</span>
+            <span class="tag">Monte Carlo</span>
+          </div>
         </div>
-        <div class="project-title">Low-Power Low-Noise ECG with DRL Circuit</div>
-        <div class="project-desc">
-          Analog front-end capturing μV-level biosignals under large common-mode interference. Custom PMOS OTA with multi-finger layout, bias tuning, and &lt;4μW power. Verified with Cadence AC, noise, stability, and Monte Carlo analysis.
-        </div>
-        <div class="project-tags">
-          <span class="tag">Cadence</span>
-          <span class="tag">OTA Design</span>
-          <span class="tag">Biomedical</span>
-          <span class="tag">SPICE</span>
-          <span class="tag">Monte Carlo</span>
+        <div class="project-img">
+          <img src="assets/ECGpic.png" alt="ECG analog front-end">
         </div>
       </div>
 
       <!-- Solar Battery -->
       <div class="project-card reveal">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-003</div>
-          <span class="project-badge">🏆 Top 3</span>
+        <div class="project-content">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;">
+            <div class="project-number">P-003</div>
+            <span class="project-badge">🏆 Top 3</span>
+          </div>
+          <div class="project-title">Solar-Powered Battery Bank with Signal Amplifier</div>
+          <div class="project-desc">
+            Custom PCB for solar power management with full hardware bring-up and validation. Arduino-based battery charge status display, complete BOM management, and schematic design.
+          </div>
+          <div class="project-tags">
+            <span class="tag">PCB Layout</span>
+            <span class="tag">KiCad</span>
+            <span class="tag">Arduino</span>
+            <span class="tag">Power Systems</span>
+            <span class="tag">BOM</span>
+          </div>
         </div>
-        <div class="project-title">Solar-Powered Battery Bank with Signal Amplifier</div>
-        <div class="project-desc">
-          Custom PCB for solar power management with full hardware bring-up and validation. Arduino-based battery charge status display, complete BOM management, and schematic design.
-        </div>
-        <div class="project-tags">
-          <span class="tag">PCB Layout</span>
-          <span class="tag">KiCad</span>
-          <span class="tag">Arduino</span>
-          <span class="tag">Power Systems</span>
-          <span class="tag">BOM</span>
+        <div class="project-img">
+          <img src="assets/SolarBankpic.png" alt="Solar battery bank PCB">
         </div>
       </div>
 
       <!-- Line Following Robot -->
       <div class="project-card reveal">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-004</div>
-          <span class="project-badge">🥇 1st Place</span>
+        <div class="project-content">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;">
+            <div class="project-number">P-004</div>
+            <span class="project-badge">🥇 1st Place</span>
+          </div>
+          <div class="project-title">Line Following Robot</div>
+          <div class="project-desc">
+            Award-winning autonomous robot with fine-tuned PID control. LED array schematic in Eagle, custom PCB layout, full hardware assembly and debugging with oscilloscopes.
+          </div>
+          <div class="project-tags">
+            <span class="tag">PID Control</span>
+            <span class="tag">Eagle</span>
+            <span class="tag">Embedded</span>
+            <span class="tag">Soldering</span>
+            <span class="tag">Debugging</span>
+          </div>
         </div>
-        <div class="project-title">Line Following Robot</div>
-        <div class="project-desc">
-          Award-winning autonomous robot with fine-tuned PID control. LED array schematic in Eagle, custom PCB layout, full hardware assembly and debugging with oscilloscopes.
-        </div>
-        <div class="project-tags">
-          <span class="tag">PID Control</span>
-          <span class="tag">Eagle</span>
-          <span class="tag">Embedded</span>
-          <span class="tag">Soldering</span>
-          <span class="tag">Debugging</span>
+        <div class="project-img">
+          <img src="assets/RobotLineFollowerpic.png" alt="Line following robot">
         </div>
       </div>
 
       <!-- Light Shield + Full-Stack Embedded -->
       <div class="project-card reveal">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;">
-          <div class="project-number">P-005</div>
-          <span class="project-badge">⚡ Full-Stack</span>
+        <div class="project-content">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;">
+            <div class="project-number">P-005</div>
+            <span class="project-badge">⚡ Full-Stack</span>
+          </div>
+          <div class="project-title">Light Shield + Full-Stack Embedded Control System</div>
+          <div class="project-desc">
+            Built a full-stack embedded lighting system — from hand-soldering SMD components on a custom PCB, writing CircuitPython and Arduino firmware, designing an OnShape enclosure, to developing a SwiftUI BLE app as the wireless GUI client.
+          </div>
+          <div class="project-tags">
+            <span class="tag">PCB Assembly</span>
+            <span class="tag">CircuitPython</span>
+            <span class="tag">Arduino</span>
+            <span class="tag">BLE</span>
+            <span class="tag">SwiftUI</span>
+            <span class="tag">OnShape</span>
+            <span class="tag">SMD Soldering</span>
+          </div>
         </div>
-        <div class="project-title">Light Shield + Full-Stack Embedded Control System</div>
-        <div class="project-desc">
-          Built a full-stack embedded lighting system — from hand-soldering SMD components on a custom PCB, writing CircuitPython and Arduino firmware, designing an OnShape enclosure, to developing a SwiftUI BLE app as the wireless GUI client.
-        </div>
-        <div class="project-tags">
-          <span class="tag">PCB Assembly</span>
-          <span class="tag">CircuitPython</span>
-          <span class="tag">Arduino</span>
-          <span class="tag">BLE</span>
-          <span class="tag">SwiftUI</span>
-          <span class="tag">OnShape</span>
-          <span class="tag">SMD Soldering</span>
+        <div class="project-img">
+          <img src="assets/lightShield.png" alt="Light Shield PCB">
         </div>
       </div>
 
