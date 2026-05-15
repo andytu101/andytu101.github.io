@@ -1398,10 +1398,6 @@
       src="assets/ECE111-TermProject.pdf"
       title="ECE 111 Term Project Report — The Viterbi Algorithm">
     </iframe>
-    <p class="detail-p" style="margin-top:0.75rem;font-size:0.72rem;">
-      If the PDF does not load, place <code>ECE111-TermProject.pdf</code> in an <code>assets/</code> folder next to this HTML file, or
-      <a href="assets/ECE111-TermProject.pdf" target="_blank" style="color:var(--accent);">open it directly</a>.
-    </p>
   </div>
 </template>
 
@@ -1524,10 +1520,6 @@
       src="assets/ECGfrontend.pdf"
       title="ECG Analog Front-End Report">
     </iframe>
-    <p class="detail-p" style="margin-top:0.75rem;font-size:0.72rem;">
-      If the PDF does not load, place <code>ECGfrontend.pdf</code> in an <code>assets/</code> folder next to this HTML file, or
-      <a href="assets/ECGfrontend.pdf" target="_blank" style="color:var(--accent);">open it directly</a>.
-    </p>
   </div>
 </template>
 
@@ -1753,7 +1745,8 @@
       template: 'tpl-generic',
       label: 'Embedded / PCB · P-004',
       title: 'Line Following Robot',
-      tags: ['PID Control','Eagle','Embedded','Soldering','Debugging']
+      tags: ['PID Control','Eagle','Embedded','Soldering','Debugging'],
+      externalUrl: 'https://sites.google.com/view/ece5lab4/poster?authuser=0'
     }
   };
 
@@ -1772,6 +1765,12 @@
   function openDetail(key) {
     const data = projectData[key];
     if (!data) return;
+
+    // If project has an external URL, open it directly
+    if (data.externalUrl) {
+      window.open(data.externalUrl, '_blank', 'noopener');
+      return;
+    }
     const overlay = document.getElementById('project-detail');
     const content = document.getElementById('detail-content');
     const crumb = document.getElementById('detail-crumb');
